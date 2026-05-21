@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Система управления задачами с возможностью создания, редактирования и перемещения между статусами">
+    <title>Kanban Board | Управление задачами</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style(ToDoList).css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <div class="header__container container">
+                <h1 class="header__title">
+                    <span class="header__icon" aria-hidden="true">📋</span>
+                    Kanban Board
+                </h1>
+                <p class="header__subtitle">Управляйте своими задачами эффективно</p>
+            </div>
+        </header>
+
+        <nav class="nav" role="navigation" aria-label="Навигация по статусам задач">
+            <div class="nav__container container">
+                <button 
+                    class="nav__button button button--primary" 
+                    id="addBtn"
+                    aria-label="Добавить новую задачу"
+                >
+                    <span class="button__icon" aria-hidden="true">+</span>
+                    <span class="button__text">Добавить задачу</span>
+                </button>
+            </div>
+        </nav>
+
+        <main class="main container" role="main">
+            <section class="board" aria-label="Доска задач">
+                <article class="column column--todo" aria-labelledby="todo-title">
+                    <header class="column__header">
+                        <h2 class="column__title" id="todo-title">
+                            <span class="column__icon" aria-hidden="true">📝</span>
+                            Новые
+                        </h2>
+                        <span class="column__count" aria-label="Количество задач">0</span>
+                    </header>
+                    <div 
+                        class="column__content" 
+                        id="todo" 
+                        role="list"
+                        aria-live="polite"
+                        aria-relevant="additions removals"
+                    ></div>
+                </article>
+
+                <article class="column column--in-progress" aria-labelledby="in-progress-title">
+                    <header class="column__header">
+                        <h2 class="column__title" id="in-progress-title">
+                            <span class="column__icon" aria-hidden="true">⚙️</span>
+                            В работе
+                        </h2>
+                        <span class="column__count" aria-label="Количество задач">0</span>
+                    </header>
+                    <div 
+                        class="column__content" 
+                        id="inProgress" 
+                        role="list"
+                        aria-live="polite"
+                        aria-relevant="additions removals"
+                    ></div>
+                </article>
+
+                <article class="column column--done" aria-labelledby="done-title">
+                    <header class="column__header">
+                        <h2 class="column__title" id="done-title">
+                            <span class="column__icon" aria-hidden="true">✅</span>
+                            Готовые
+                        </h2>
+                        <span class="column__count" aria-label="Количество задач">0</span>
+                    </header>
+                    <div 
+                        class="column__content" 
+                        id="done" 
+                        role="list"
+                        aria-live="polite"
+                        aria-relevant="additions removals"
+                    ></div>
+                </article>
+
+                <article class="column column--deleted" aria-labelledby="deleted-title">
+                    <header class="column__header">
+                        <h2 class="column__title" id="deleted-title">
+                            <span class="column__icon" aria-hidden="true">🗑️</span>
+                            Удалённые
+                        </h2>
+                        <span class="column__count" aria-label="Количество задач">0</span>
+                    </header>
+                    <div 
+                        class="column__content" 
+                        id="deleted" 
+                        role="list"
+                        aria-live="polite"
+                        aria-relevant="additions removals"
+                    ></div>
+                </article>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <div class="footer__container container">
+                <p class="footer__text">
+                    <span aria-hidden="true">💡</span>
+                    Перетаскивайте задачи между колонками или используйте кнопки
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal for Add/Edit Task -->
+    <div 
+        class="modal-overlay" 
+        id="modalOverlay" 
+        role="dialog" 
+        aria-modal="true" 
+        aria-labelledby="modalTitle"
+        hidden
+    >
+        <div class="modal">
+            <header class="modal__header">
+                <h3 class="modal__title" id="modalTitle">Добавить задачу</h3>
+                <button 
+                    class="modal__close" 
+                    id="modalClose"
+                    aria-label="Закрыть модальное окно"
+                    type="button"
+                >
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </header>
+            <form class="modal__form" id="taskForm">
+                <input type="hidden" id="taskId" value="">
+                <div class="form-group">
+                    <label class="form-label" for="taskText">
+                        Описание задачи
+                        <span class="form-label__required" aria-hidden="true">*</span>
+                    </label>
+                    <textarea 
+                        class="form-input form-input--textarea" 
+                        id="taskText" 
+                        placeholder="Введите описание задачи..."
+                        required
+                        minlength="1"
+                        maxlength="500"
+                        rows="4"
+                        aria-required="true"
+                    ></textarea>
+                    <span class="form-hint">Максимум 500 символов</span>
+                </div>
+                <div class="modal__actions">
+                    <button 
+                        type="button" 
+                        class="button button--secondary" 
+                        id="modalCancel"
+                    >
+                        Отмена
+                    </button>
+                    <button 
+                        type="submit" 
+                        class="button button--primary" 
+                        id="modalSubmit"
+                    >
+                        <span class="button__icon" aria-hidden="true">✓</span>
+                        <span class="button__text" id="modalSubmitText">Сохранить</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+    <script type="module" src="script(ToDoList).js"></script>
+</body>
+</html>
