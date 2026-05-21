@@ -135,3 +135,7 @@ equals.addEventListener('click', function(){
     inputRow.textContent += result.toString();
     operations.length = 0;
 });
+
+document.getElementById('back-b').addEventListener('click', function(){
+    window.location.href = 'index.html';
+});

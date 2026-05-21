@@ -547,3 +547,7 @@
         init();
     }
 })();
+
+document.getElementById('back-b').addEventListener('click', function(){
+    window.location.href = 'index.html';
+});
