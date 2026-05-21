@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.head{
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.navigation-container{
+    width: 1745px;
+    height: 50px;
+    background-color: #808080;
+    display: flex;
+    align-items: center;
+}
+
+.navigation-title{
+    padding-left: 50px;
+    color: #9ACD32;
+    font-family: 'Courier';
+    font-size: 30px;
+}
+
+.cacluclator-image{
+    width: 35px;
+    height: 35px;
+}
+
+.main-container{
+    width: 1745px;
+    height: 881px;
+    background-color: #D3D3D3;
+    display: flex;
+    justify-content: center;
+}
+
+.middle-conteiner{
+    width: 50%;
+    height: 881px;
+    background-color: #A9A9A9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculator{
+    width: 25%;
+    height: 35%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.calculator-row{
+    width: 77%;
+    height: 5%;
+    background-color: rgb(173, 161, 161);
+    opacity: 1;
+    margin: 10px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+
+.calculator-row,
+.first-buttons-row,
+.second-buttons-row,
+.third-buttons-row,
+.fours-buttons-row,
+.fifth-buttons-row{
+    padding-bottom: 10px;
+}
+
+.b-C, .b-root, .b-percent, .b-division,
+.b-7, .b-8, .b-9, .b-6, .b-5, .b-4, .b-3, 
+.b-2, .b-1, .b-0, .b-multiplication, .b-minus,
+.b-plus, .b-negative, .b-decimal, .b-equals{
+    width: 37px;
+    height: 37px;
+    border: 3px;
+    margin: 3px 0 0 3px;
+    border-radius: 5px;
+}
+
+.b-C{
+    background-color: #DC143C;
+    color: #FFE4E1;
+    width: 37px;
+    height: 37px;
+}
+
+.b-root, .b-percent, .b-division, 
+.b-multiplication, .b-minus, .b-plus, 
+.b-negative, .b-decimal, .b-equals{
+    background-color: #FF4500;
+    color: #FFE4E1;
+}
+
+.b-1, .b-2, .b-3, .b-4, .b-5,
+.b-6, .b-7, .b-8, .b-9, .b-0{
+    background-color: rgb(173, 161, 161);
+}
+
+.footer-conteiner{
+    width: 1745px;
+    height: 50px;
+    background-color: #808080;
+    display: flex;
+    align-items: center;
+}
